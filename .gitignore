@@ -104,4 +104,6 @@ venv.bak/
 .mypy_cache/
 *.tar.bz2
 *.pyc
+.asv
+conda
 
