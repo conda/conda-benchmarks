@@ -66,11 +66,11 @@ def test_solve_r_essentials_r_base_conda_forge():
                                     'r-essentials', 'r-base'])
 
 
-@pytest.mark.benchmark
-def test_solve_r_essentials_r_base_conda_forge_bioconda():
-    execute_conda_cmd(CLEAN_INDEX_ARGS)
-    execute_conda_cmd(SOLVE_ARGS + ['-c', bioconda, '-c', conda_forge, '-c', main, '-c', r,
-                                    'r-essentials', 'r-base'])
+#@pytest.mark.benchmark
+#def test_solve_r_essentials_r_base_conda_forge_bioconda():
+#    execute_conda_cmd(CLEAN_INDEX_ARGS)
+#    execute_conda_cmd(SOLVE_ARGS + ['-c', bioconda, '-c', conda_forge, '-c', main, '-c', r,
+#                                    'r-essentials', 'r-base'])
 
 
 @pytest.mark.benchmark
