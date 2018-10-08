@@ -16,6 +16,12 @@
         "requests": [],
         "chardet": []
     },
+    "build_command": [
+        "/usr/bin/sed -i.bu 's/sys.exit(0)/return 0/' conda/cli/install.py",
+        "/usr/bin/sed -i.bu 's/get_version(__file__)/\"9.9.9\"/' conda/__init__.py",
+        "python setup.py build",
+        "PIP_NO_BUILD_ISOLATION=false python -mpip wheel --no-deps --no-index -w {build_cache_dir} {build_dir}"],
+    "install_command": ["python -mpip install {wheel_file}"],
     "conda_channels": ["https://repo.anaconda.com/pkgs/main"],
     "env_dir": ".asv/env",
     "results_dir": ".asv/results",

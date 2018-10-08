@@ -1,5 +1,8 @@
 import os
 import sys
+import shutil
+import random
+import string
 
 import pytest
 
@@ -18,9 +21,13 @@ def execute_conda_cmd(args):
         return main()
 
 
+def random_env_name(N=10):
+    return ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(N))
+
+
 CLEAN_INDEX_ARGS = ['conda', 'clean', '-iy']
 CREATE_ARGS = ['conda', 'create']
-SOLVE_ARGS = CREATE_ARGS + ['--dry-run', '-n', 'dry_run_env']
+SOLVE_ARGS = CREATE_ARGS + ['--dry-run', '-n', random_env_name()]
 
 thisdir = os.path.dirname(__file__)
 repos_dir = os.path.join(os.path.dirname(thisdir), 'repos')
@@ -76,22 +83,22 @@ def test_solve_r_essentials_r_base_conda_forge():
 @pytest.mark.benchmark
 def test_create_python():
     execute_conda_cmd(CLEAN_INDEX_ARGS)
-    execute_conda_cmd(CREATE_ARGS + ['-y', '-n', 'plain_python_env', '-c', main, 'python=3.6'])
+    execute_conda_cmd(CREATE_ARGS + ['-y', '-n', random_env_name(), '-c', main, 'python=3.6'])
 
 
 @pytest.mark.benchmark
 def test_create_python_boost():
     execute_conda_cmd(CLEAN_INDEX_ARGS)
-    execute_conda_cmd(CREATE_ARGS + ['-y', '-n', 'python_boost_env',  '-c', main, 'python=3.6', 'libboost'])
+    execute_conda_cmd(CREATE_ARGS + ['-y', '-n', random_env_name(),  '-c', main, 'python=3.6', 'libboost'])
 
 
 @pytest.mark.benchmark
 def test_create_numpy_openblas():
     execute_conda_cmd(CLEAN_INDEX_ARGS)
-    execute_conda_cmd(CREATE_ARGS + ['-y', '-n', 'openblas_numpy_env',  '-c', main, 'python=3.6', 'numpy=1.15.2', 'nomkl'])
+    execute_conda_cmd(CREATE_ARGS + ['-y', '-n', random_env_name(),  '-c', main, 'python=3.6', 'numpy=1.15.2', 'nomkl'])
 
 
 @pytest.mark.benchmark
 def test_create_numpy_mkl():
     execute_conda_cmd(CLEAN_INDEX_ARGS)
-    execute_conda_cmd(CREATE_ARGS + ['-y', '-n', 'mkl_numpy_env',  '-c', main, 'python=3.6', 'numpy=1.15.2'])
+    execute_conda_cmd(CREATE_ARGS + ['-y', '-n', random_env_name(),  '-c', main, 'python=3.6', 'numpy=1.15.2'])
