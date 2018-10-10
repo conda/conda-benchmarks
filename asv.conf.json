@@ -14,11 +14,13 @@
         "pycosat": [],
         "ruamel_yaml": [],
         "requests": [],
-        "chardet": []
+        "chardet": [],
+        "conda-env": []
     },
     "build_command": [
         "/usr/bin/sed -i.bu 's/sys.exit(0)/return 0/' conda/cli/install.py",
         "/usr/bin/sed -i.bu 's/get_version(__file__)/\"9.9.9\"/' conda/__init__.py",
+        "/usr/bin/sed -i.bu 's/conda-env >=2.6//' setup.py",
         "python setup.py build",
         "PIP_NO_BUILD_ISOLATION=false python -mpip wheel --no-deps --no-index -w {build_cache_dir} {build_dir}"],
     "install_command": ["python -mpip install {wheel_file}"],

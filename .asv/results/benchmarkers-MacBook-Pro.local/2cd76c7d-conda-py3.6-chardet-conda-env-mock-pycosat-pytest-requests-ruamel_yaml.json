@@ -1,0 +1,292 @@
+{
+  "benchmark_version": {
+    "peakmem_create_numpy_mkl": "13b1ae4eebd0e59e3bc6d26a78190f32e42cca5d2eeda8ed9105b99db5a72a87",
+    "peakmem_create_numpy_openblas": "656ef7ca441609508c4f968b88a3b2cbac574fb6ee5344c6c3d64c60b9025bf0",
+    "peakmem_create_python": "30097b0542e813f4782ac59e59078f9e2e11848dba350dc43d69717d09179546",
+    "peakmem_create_python_boost": "3e20c0ae39821dd285a2eeda2a4ec5a15271cd4b6b4a08a8305a85a344bdbdd1",
+    "peakmem_solve_anaconda_44": "2b896a225dc51e888e32929341a6912c4444d61ef62d00e3aa5b89ab1195df47",
+    "peakmem_solve_anaconda_44_free_only": "0645dbce91e79f68131f483b780e43ce4d71126de7973a05eecf07ee525c357e",
+    "peakmem_solve_anaconda_53": "8ab30d5c38da24ce86a6e9ec5b7245ddb2a7b52f46d4ff0296f5806d34b926e9",
+    "peakmem_solve_r_essentials_r_base_conda_forge": "0ca9152e47b90037aaf9399af7b70cf0be75cf51bd0179e34ce9c92e4f477303",
+    "peakmem_solve_r_essentials_r_base_defaults": "594e476712d4c7ac5e8a736ca36a66d530184ca2c4c2ae4242bd716cc340ce07",
+    "time_create_numpy_mkl": "13b1ae4eebd0e59e3bc6d26a78190f32e42cca5d2eeda8ed9105b99db5a72a87",
+    "time_create_numpy_openblas": "656ef7ca441609508c4f968b88a3b2cbac574fb6ee5344c6c3d64c60b9025bf0",
+    "time_create_python": "30097b0542e813f4782ac59e59078f9e2e11848dba350dc43d69717d09179546",
+    "time_create_python_boost": "3e20c0ae39821dd285a2eeda2a4ec5a15271cd4b6b4a08a8305a85a344bdbdd1",
+    "time_solve_anaconda_44": "2b896a225dc51e888e32929341a6912c4444d61ef62d00e3aa5b89ab1195df47",
+    "time_solve_anaconda_44_free_only": "0645dbce91e79f68131f483b780e43ce4d71126de7973a05eecf07ee525c357e",
+    "time_solve_anaconda_53": "8ab30d5c38da24ce86a6e9ec5b7245ddb2a7b52f46d4ff0296f5806d34b926e9",
+    "time_solve_r_essentials_r_base_conda_forge": "0ca9152e47b90037aaf9399af7b70cf0be75cf51bd0179e34ce9c92e4f477303",
+    "time_solve_r_essentials_r_base_defaults": "594e476712d4c7ac5e8a736ca36a66d530184ca2c4c2ae4242bd716cc340ce07"
+  },
+  "commit_hash": "2cd76c7dddb6e9e54ac36b92fc0f9b886dcbfd48",
+  "date": 1531271132000,
+  "ended_at": {
+    "peakmem_create_numpy_mkl": 1539064660693,
+    "peakmem_create_numpy_openblas": 1539064669977,
+    "peakmem_create_python": 1539064677578,
+    "peakmem_create_python_boost": 1539064704960,
+    "peakmem_solve_anaconda_44": 1539064714754,
+    "peakmem_solve_anaconda_44_free_only": 1539064720711,
+    "peakmem_solve_anaconda_53": 1539064774049,
+    "peakmem_solve_r_essentials_r_base_conda_forge": 1539064829463,
+    "peakmem_solve_r_essentials_r_base_defaults": 1539064842642,
+    "time_create_numpy_mkl": 1539064865391,
+    "time_create_numpy_openblas": 1539064883173,
+    "time_create_python": 1539064897735,
+    "time_create_python_boost": 1539064949237,
+    "time_solve_anaconda_44": 1539064967588,
+    "time_solve_anaconda_44_free_only": 1539064978782,
+    "time_solve_anaconda_53": 1539065081675,
+    "time_solve_r_essentials_r_base_conda_forge": 1539065192682,
+    "time_solve_r_essentials_r_base_defaults": 1539065217480
+  },
+  "env_name": "conda-py3.6-chardet-conda-env-mock-pycosat-pytest-requests-ruamel_yaml",
+  "params": {
+    "arch": "x86_64",
+    "chardet": "",
+    "conda-env": "",
+    "cpu": "Intel(R) Core(TM) i7-4870HQ CPU @ 2.50GHz",
+    "machine": "benchmarkers-MacBook-Pro.local",
+    "mock": "",
+    "os": "Darwin 17.7.0",
+    "pycosat": "",
+    "pytest": "",
+    "python": "3.6",
+    "ram": "16GB",
+    "requests": "",
+    "ruamel_yaml": ""
+  },
+  "profiles": {},
+  "python": "3.6",
+  "requirements": {
+    "chardet": "",
+    "conda-env": "",
+    "mock": "",
+    "pycosat": "",
+    "pytest": "",
+    "requests": "",
+    "ruamel_yaml": ""
+  },
+  "results": {
+    "peakmem_create_numpy_mkl": 115761152,
+    "peakmem_create_numpy_openblas": 298180608,
+    "peakmem_create_python": 114556928,
+    "peakmem_create_python_boost": 201752576,
+    "peakmem_solve_anaconda_44": 194142208,
+    "peakmem_solve_anaconda_44_free_only": 140767232,
+    "peakmem_solve_anaconda_53": 624824320,
+    "peakmem_solve_r_essentials_r_base_conda_forge": 597839872,
+    "peakmem_solve_r_essentials_r_base_defaults": 197185536,
+    "time_create_numpy_mkl": {
+      "result": [
+        9.2614105
+      ],
+      "stats": [
+        {
+          "ci_99": [
+            9.099135499999946,
+            9.423685500000056
+          ],
+          "max": 9.264656000000002,
+          "mean": 9.2614105,
+          "min": 9.258165,
+          "number": 1,
+          "q_25": 9.259787750000001,
+          "q_75": 9.263033250000001,
+          "repeat": 2,
+          "std": 0.0032455000000011225
+        }
+      ]
+    },
+    "time_create_numpy_openblas": {
+      "result": [
+        8.204375499999998
+      ],
+      "stats": [
+        {
+          "ci_99": [
+            7.615400499999985,
+            8.793350500000011
+          ],
+          "max": 8.216154999999999,
+          "mean": 8.204375499999998,
+          "min": 8.192595999999998,
+          "number": 1,
+          "q_25": 8.198485749999998,
+          "q_75": 8.210265249999999,
+          "repeat": 2,
+          "std": 0.011779500000000276
+        }
+      ]
+    },
+    "time_create_python": {
+      "result": [
+        6.7674445
+      ],
+      "stats": [
+        {
+          "ci_99": [
+            6.617269499999992,
+            6.917619500000008
+          ],
+          "max": 6.770448,
+          "mean": 6.7674445,
+          "min": 6.764441,
+          "number": 1,
+          "q_25": 6.765942750000001,
+          "q_75": 6.768946249999999,
+          "repeat": 2,
+          "std": 0.003003500000000159
+        }
+      ]
+    },
+    "time_create_python_boost": {
+      "result": [
+        21.426044
+      ],
+      "stats": [
+        {
+          "ci_99": [
+            -2.6266059999999634,
+            45.47869399999995
+          ],
+          "max": 21.907097,
+          "mean": 21.426044,
+          "min": 20.944991,
+          "number": 1,
+          "q_25": 21.185517500000003,
+          "q_75": 21.666570500000002,
+          "repeat": 2,
+          "std": 0.4810529999999993
+        }
+      ]
+    },
+    "time_solve_anaconda_44": {
+      "result": [
+        8.5452945
+      ],
+      "stats": [
+        {
+          "ci_99": [
+            2.650369499999961,
+            14.440219500000035
+          ],
+          "max": 8.663193000000001,
+          "mean": 8.5452945,
+          "min": 8.427396,
+          "number": 1,
+          "q_25": 8.48634525,
+          "q_75": 8.604243750000002,
+          "repeat": 2,
+          "std": 0.1178985000000008
+        }
+      ]
+    },
+    "time_solve_anaconda_44_free_only": {
+      "result": [
+        5.079188
+      ],
+      "stats": [
+        {
+          "ci_99": [
+            1.8321380000000151,
+            8.326237999999982
+          ],
+          "max": 5.1441289999999995,
+          "mean": 5.079188,
+          "min": 5.014247,
+          "number": 1,
+          "q_25": 5.0467175,
+          "q_75": 5.1116585,
+          "repeat": 2,
+          "std": 0.0649409999999997
+        }
+      ]
+    },
+    "time_solve_anaconda_53": {
+      "result": [
+        51.07996349999999
+      ],
+      "stats": [
+        {
+          "ci_99": [
+            44.53268849999968,
+            57.62723850000031
+          ],
+          "max": 51.210909,
+          "mean": 51.07996349999999,
+          "min": 50.94901799999999,
+          "number": 1,
+          "q_25": 51.01449074999999,
+          "q_75": 51.145436249999996,
+          "repeat": 2,
+          "std": 0.13094550000000638
+        }
+      ]
+    },
+    "time_solve_r_essentials_r_base_conda_forge": {
+      "result": [
+        53.787487
+      ],
+      "stats": [
+        {
+          "ci_99": [
+            15.622487000000135,
+            91.95248699999985
+          ],
+          "max": 54.550787,
+          "mean": 53.787487,
+          "min": 53.024187000000005,
+          "number": 1,
+          "q_25": 53.405837000000005,
+          "q_75": 54.169137,
+          "repeat": 2,
+          "std": 0.7632999999999974
+        }
+      ]
+    },
+    "time_solve_r_essentials_r_base_defaults": {
+      "result": [
+        11.936197
+      ],
+      "stats": [
+        {
+          "ci_99": [
+            6.91234700000006,
+            16.96004699999994
+          ],
+          "max": 12.036674,
+          "mean": 11.936197,
+          "min": 11.835720000000002,
+          "number": 1,
+          "q_25": 11.885958500000001,
+          "q_75": 11.9864355,
+          "repeat": 2,
+          "std": 0.10047699999999882
+        }
+      ]
+    }
+  },
+  "started_at": {
+    "peakmem_create_numpy_mkl": 1539064648275,
+    "peakmem_create_numpy_openblas": 1539064660693,
+    "peakmem_create_python": 1539064669977,
+    "peakmem_create_python_boost": 1539064677579,
+    "peakmem_solve_anaconda_44": 1539064704960,
+    "peakmem_solve_anaconda_44_free_only": 1539064714754,
+    "peakmem_solve_anaconda_53": 1539064720711,
+    "peakmem_solve_r_essentials_r_base_conda_forge": 1539064774049,
+    "peakmem_solve_r_essentials_r_base_defaults": 1539064829464,
+    "time_create_numpy_mkl": 1539064842642,
+    "time_create_numpy_openblas": 1539064865392,
+    "time_create_python": 1539064883173,
+    "time_create_python_boost": 1539064897736,
+    "time_solve_anaconda_44": 1539064949237,
+    "time_solve_anaconda_44_free_only": 1539064967588,
+    "time_solve_anaconda_53": 1539064978782,
+    "time_solve_r_essentials_r_base_conda_forge": 1539065081675,
+    "time_solve_r_essentials_r_base_defaults": 1539065192683
+  },
+  "version": 1
+}
