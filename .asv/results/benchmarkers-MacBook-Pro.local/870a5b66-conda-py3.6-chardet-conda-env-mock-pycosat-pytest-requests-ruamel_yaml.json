@@ -29,7 +29,7 @@
         "peakmem_solve_anaconda_44": 1540303727231,
         "peakmem_solve_anaconda_44_free_only": 1540303733774,
         "peakmem_solve_anaconda_53": 1540303771011,
-        "peakmem_solve_r_essentials_r_base_conda_forge": 1540303837593,
+        "peakmem_solve_r_essentials_r_base_conda_forge": 1544639423348,
         "peakmem_solve_r_essentials_r_base_defaults": 1540303849042,
         "time_create_numpy_mkl": 1540303873979,
         "time_create_numpy_openblas": 1540303893641,
@@ -76,7 +76,7 @@
         "peakmem_solve_anaconda_44": 204554240,
         "peakmem_solve_anaconda_44_free_only": 160059392,
         "peakmem_solve_anaconda_53": 618901504,
-        "peakmem_solve_r_essentials_r_base_conda_forge": null,
+        "peakmem_solve_r_essentials_r_base_conda_forge": 577445888,
         "peakmem_solve_r_essentials_r_base_defaults": 187166720,
         "time_create_numpy_mkl": {
             "result": [
@@ -276,7 +276,7 @@
         "peakmem_solve_anaconda_44": 1540303716099,
         "peakmem_solve_anaconda_44_free_only": 1540303727231,
         "peakmem_solve_anaconda_53": 1540303733774,
-        "peakmem_solve_r_essentials_r_base_conda_forge": 1540303771011,
+        "peakmem_solve_r_essentials_r_base_conda_forge": 1544639373528,
         "peakmem_solve_r_essentials_r_base_defaults": 1540303837593,
         "time_create_numpy_mkl": 1540303849042,
         "time_create_numpy_openblas": 1540303873979,

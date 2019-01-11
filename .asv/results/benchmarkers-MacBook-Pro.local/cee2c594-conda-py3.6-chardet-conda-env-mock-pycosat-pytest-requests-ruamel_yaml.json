@@ -29,7 +29,7 @@
         "peakmem_solve_anaconda_44": 1540380146917,
         "peakmem_solve_anaconda_44_free_only": 1540380157969,
         "peakmem_solve_anaconda_53": 1540380216505,
-        "peakmem_solve_r_essentials_r_base_conda_forge": 1540380277177,
+        "peakmem_solve_r_essentials_r_base_conda_forge": 1547233672633,
         "peakmem_solve_r_essentials_r_base_defaults": 1540380294773,
         "time_create_numpy_mkl": 1540380324408,
         "time_create_numpy_openblas": 1540380351895,
@@ -38,7 +38,7 @@
         "time_solve_anaconda_44": 1540380480666,
         "time_solve_anaconda_44_free_only": 1540380501356,
         "time_solve_anaconda_53": 1540380615820,
-        "time_solve_r_essentials_r_base_conda_forge": 1540380019140,
+        "time_solve_r_essentials_r_base_conda_forge": 1547233611906,
         "time_solve_r_essentials_r_base_defaults": 1540380648912
     },
     "env_name": "conda-py3.6-chardet-conda-env-mock-pycosat-pytest-requests-ruamel_yaml",
@@ -256,7 +256,7 @@
         "peakmem_solve_anaconda_44": 1540380128921,
         "peakmem_solve_anaconda_44_free_only": 1540380146917,
         "peakmem_solve_anaconda_53": 1540380157969,
-        "peakmem_solve_r_essentials_r_base_conda_forge": 1540380216505,
+        "peakmem_solve_r_essentials_r_base_conda_forge": 1547233611906,
         "peakmem_solve_r_essentials_r_base_defaults": 1540380277177,
         "time_create_numpy_mkl": 1540380294773,
         "time_create_numpy_openblas": 1540380324409,
@@ -265,7 +265,7 @@
         "time_solve_anaconda_44": 1540380444614,
         "time_solve_anaconda_44_free_only": 1540380480666,
         "time_solve_anaconda_53": 1540380501357,
-        "time_solve_r_essentials_r_base_conda_forge": 1540379958417,
+        "time_solve_r_essentials_r_base_conda_forge": 1547233551336,
         "time_solve_r_essentials_r_base_defaults": 1540380615821
     },
     "version": 1
