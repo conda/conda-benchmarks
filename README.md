@@ -7,9 +7,9 @@ script, then run asv with your desired options.
 ## Quickstart
 
 ```bash
-$> conda create -n conda-benchmarks python=3.9 conda asv six pytest
+$> conda create -n conda-benchmarks -c conda-forge python=3.9 conda asv six pytest
 $> conda activate conda-benchmarks
 $> python download_files.py
-$> asv machine -y
+$> asv machine --yes
 $> asv dev  # quick run
 ```
