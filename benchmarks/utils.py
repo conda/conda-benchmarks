@@ -7,6 +7,7 @@ import os
 from pprint import pprint
 import sys
 import types
+from importlib import __import__   # NOQA
 
 
 # https://stackoverflow.com/a/31197273/1170370
@@ -40,12 +41,6 @@ if os.path.exists(flist):
         flist = json.load(f)
 else:
     flist = []
-
-try:
-    from importlib import __import__   # NOQA
-except ImportError:
-    #  __import__ defined in py2
-    pass
 
 
 def _parse_ast(filename):
