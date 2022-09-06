@@ -108,3 +108,5 @@ venv.bak/
 .asv/html
 conda
 
+# conda-benchmarsk
+repos/

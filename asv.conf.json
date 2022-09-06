@@ -1,13 +1,14 @@
 {
     "version": 1,
     "project": "conda",
-    "project_url": "http://github.com/conda/conda-benchmarks",
-    "repo": "http://github.com/conda/conda",
-    "branches": ["master"],
+    "project_url": "https://github.com/conda/conda-benchmarks",
+    "repo": "https://github.com/conda/conda",
+    "branches": ["main"],
     "dvcs": "git",
     "environment_type": "conda",
-    "show_commit_url": "http://github.com/conda/conda/commit/",
-    "pythons": ["3.6"],
+    "show_commit_url": "https://github.com/conda/conda/commit/",
+    "pythons": ["3.10"],
+    // used instead of an environment.yml:
     "matrix": {
         "pytest": [],
         "mock": [],
@@ -15,15 +16,16 @@
         "ruamel_yaml": [],
         "requests": [],
         "chardet": [],
-        "conda-env": []
+        "toolz": []
+        // "conda-env": []
     },
     "build_command": [
         "/usr/bin/sed -i.bu 's/sys.exit(0)/return 0/' conda/cli/install.py",
         "/usr/bin/sed -i.bu 's/get_version(__file__)/\"9.9.9\"/' conda/__init__.py",
         "/usr/bin/sed -i.bu 's/conda-env >=2.6//' setup.py",
-        "python setup.py build",
-        "PIP_NO_BUILD_ISOLATION=false python -mpip wheel --no-deps --no-index -w {build_cache_dir} {build_dir}"],
-    "install_command": ["python -mpip install {wheel_file}"],
+        "python -m pip wheel --no-build-isolation --no-deps --no-index -w {build_cache_dir} {build_dir}"],
+    // "install_command": ["in-dir={env_dir} python -mpip install {wheel_file}"],
+    // "uninstall_command": ["return-code=any python -mpip uninstall -y {project}"],
     "conda_channels": ["https://repo.anaconda.com/pkgs/main"],
     "env_dir": ".asv/env",
     "results_dir": ".asv/results",
