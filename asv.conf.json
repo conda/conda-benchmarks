@@ -85,7 +85,7 @@
 
     "matrix": {
         "req": {
-            "conda-package-handling": ["2.0.0a4"],
+            "conda-package-handling": ["2.0.2"],
         }
     },
 
