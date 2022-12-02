@@ -184,42 +184,8 @@
         "unit": "bytes",
         "version": "655976de94b89433baaecbc7cc0dd3e1a08dce4d4eb8d0fc442baabd4bbe99c0"
     },
-    "peakmem_solve_anaconda_44": {
-        "code": "@pytest.mark.benchmark\n@paramaterize_solver\ndef test_solve_anaconda_44(solver=SOLVER_DEFAULT):\n    execute_conda_cmd(CLEAN_INDEX_ARGS)\n    execute_conda_cmd(\n        SOLVE_ARGS + [f\"--solver={solver}\", \"-c\", main, \"-c\", free, \"anaconda=4.4.0\"]\n    )",
-        "name": "peakmem_solve_anaconda_44",
-        "param_names": [
-            "param1"
-        ],
-        "params": [
-            [
-                "'classic'",
-                "'libmamba'"
-            ]
-        ],
-        "timeout": 60.0,
-        "type": "peakmemory",
-        "unit": "bytes",
-        "version": "dba40cad6b7c0d327f09abf89843fada576b56e713b653919d2172098fd58636"
-    },
-    "peakmem_solve_anaconda_44_free_only": {
-        "code": "@pytest.mark.benchmark\n@paramaterize_solver\ndef test_solve_anaconda_44_free_only(solver=SOLVER_DEFAULT):\n    execute_conda_cmd(CLEAN_INDEX_ARGS)\n    execute_conda_cmd(SOLVE_ARGS + [f\"--solver={solver}\", \"-c\", free, \"anaconda=4.4.0\"])",
-        "name": "peakmem_solve_anaconda_44_free_only",
-        "param_names": [
-            "param1"
-        ],
-        "params": [
-            [
-                "'classic'",
-                "'libmamba'"
-            ]
-        ],
-        "timeout": 60.0,
-        "type": "peakmemory",
-        "unit": "bytes",
-        "version": "50f1c18cc3b72ef07a15bc98c25ee7dca62f17d57326643511af4dcd5b2c378e"
-    },
     "peakmem_solve_anaconda_53": {
-        "code": "@pytest.mark.benchmark\n@paramaterize_solver\ndef test_solve_anaconda_53(solver=SOLVER_DEFAULT):\n    execute_conda_cmd(CLEAN_INDEX_ARGS)\n    execute_conda_cmd(SOLVE_ARGS + [f\"--solver={solver}\", \"-c\", main, \"anaconda=5.3.0\"])",
+        "code": "@pytest.mark.benchmark\n@paramaterize_solver\ndef test_solve_anaconda_53(solver=SOLVER_DEFAULT):\n    execute_conda_cmd(CLEAN_INDEX_ARGS)\n    execute_conda_cmd(\n        SOLVE_ARGS + [f\"--solver={solver}\", \"-c\", main, \"anaconda=5.3.0\"]\n    )",
         "name": "peakmem_solve_anaconda_53",
         "param_names": [
             "param1"
@@ -233,7 +199,7 @@
         "timeout": 60.0,
         "type": "peakmemory",
         "unit": "bytes",
-        "version": "a0f662f4e1b438aa46c8951196e8e06be2b373adac010e110fbdf89b1ed68b5d"
+        "version": "5b8600e818025cd7cd6518748d577d02d4f727c5496a24ac158481afbbd64e61"
     },
     "peakmem_solve_r_essentials_r_base_conda_forge": {
         "code": "@pytest.mark.benchmark\n@paramaterize_solver\ndef test_solve_r_essentials_r_base_conda_forge(solver=SOLVER_DEFAULT):\n    execute_conda_cmd(CLEAN_INDEX_ARGS)\n    execute_conda_cmd(\n        SOLVE_ARGS\n        + [\n            f\"--solver={solver}\",\n            \"-c\",\n            conda_forge,\n            \"-c\",\n            main,\n            \"-c\",\n            r,\n            \"r-essentials\",\n            \"r-base\",\n        ]\n    )",
@@ -473,54 +439,8 @@
         "version": "655976de94b89433baaecbc7cc0dd3e1a08dce4d4eb8d0fc442baabd4bbe99c0",
         "warmup_time": -1
     },
-    "time_solve_anaconda_44": {
-        "code": "@pytest.mark.benchmark\n@paramaterize_solver\ndef test_solve_anaconda_44(solver=SOLVER_DEFAULT):\n    execute_conda_cmd(CLEAN_INDEX_ARGS)\n    execute_conda_cmd(\n        SOLVE_ARGS + [f\"--solver={solver}\", \"-c\", main, \"-c\", free, \"anaconda=4.4.0\"]\n    )",
-        "min_run_count": 2,
-        "name": "time_solve_anaconda_44",
-        "number": 0,
-        "param_names": [
-            "param1"
-        ],
-        "params": [
-            [
-                "'classic'",
-                "'libmamba'"
-            ]
-        ],
-        "repeat": 0,
-        "rounds": 2,
-        "sample_time": 0.01,
-        "timeout": 60.0,
-        "type": "time",
-        "unit": "seconds",
-        "version": "dba40cad6b7c0d327f09abf89843fada576b56e713b653919d2172098fd58636",
-        "warmup_time": -1
-    },
-    "time_solve_anaconda_44_free_only": {
-        "code": "@pytest.mark.benchmark\n@paramaterize_solver\ndef test_solve_anaconda_44_free_only(solver=SOLVER_DEFAULT):\n    execute_conda_cmd(CLEAN_INDEX_ARGS)\n    execute_conda_cmd(SOLVE_ARGS + [f\"--solver={solver}\", \"-c\", free, \"anaconda=4.4.0\"])",
-        "min_run_count": 2,
-        "name": "time_solve_anaconda_44_free_only",
-        "number": 0,
-        "param_names": [
-            "param1"
-        ],
-        "params": [
-            [
-                "'classic'",
-                "'libmamba'"
-            ]
-        ],
-        "repeat": 0,
-        "rounds": 2,
-        "sample_time": 0.01,
-        "timeout": 60.0,
-        "type": "time",
-        "unit": "seconds",
-        "version": "50f1c18cc3b72ef07a15bc98c25ee7dca62f17d57326643511af4dcd5b2c378e",
-        "warmup_time": -1
-    },
     "time_solve_anaconda_53": {
-        "code": "@pytest.mark.benchmark\n@paramaterize_solver\ndef test_solve_anaconda_53(solver=SOLVER_DEFAULT):\n    execute_conda_cmd(CLEAN_INDEX_ARGS)\n    execute_conda_cmd(SOLVE_ARGS + [f\"--solver={solver}\", \"-c\", main, \"anaconda=5.3.0\"])",
+        "code": "@pytest.mark.benchmark\n@paramaterize_solver\ndef test_solve_anaconda_53(solver=SOLVER_DEFAULT):\n    execute_conda_cmd(CLEAN_INDEX_ARGS)\n    execute_conda_cmd(\n        SOLVE_ARGS + [f\"--solver={solver}\", \"-c\", main, \"anaconda=5.3.0\"]\n    )",
         "min_run_count": 2,
         "name": "time_solve_anaconda_53",
         "number": 0,
@@ -539,7 +459,7 @@
         "timeout": 60.0,
         "type": "time",
         "unit": "seconds",
-        "version": "a0f662f4e1b438aa46c8951196e8e06be2b373adac010e110fbdf89b1ed68b5d",
+        "version": "5b8600e818025cd7cd6518748d577d02d4f727c5496a24ac158481afbbd64e61",
         "warmup_time": -1
     },
     "time_solve_r_essentials_r_base_conda_forge": {
