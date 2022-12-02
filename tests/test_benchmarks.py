@@ -1,24 +1,26 @@
+"""
+This test is a bit of a broken mess, having been written years ago for older
+dependencies etc.
+"""
+
 import os
 import sys
-import shutil
 import random
 import string
-
+from pathlib import Path
 import pytest
 
 # subdir = 'linux-64'
 # os.environ['CONDA_SUBDIR'] = subdir
 
-try:
-    # python 3.4+ should use builtin unittest.mock not mock package
-    from unittest.mock import patch
-except ImportError:
-    from mock import patch
+from unittest.mock import patch
 
 
 def execute_conda_cmd(args):
     from conda.cli import main
+    from conda.base.context import reset_context
 
+    reset_context()
     with patch.object(sys, "argv", args):
         return main()
 
@@ -31,7 +33,7 @@ def random_env_name(N=10):
 
 CLEAN_INDEX_ARGS = ["conda", "clean", "-iy"]
 CREATE_ARGS = ["conda", "create"]
-SOLVE_ARGS = CREATE_ARGS + ["--dry-run", "-n", random_env_name()]
+SOLVE_ARGS = CREATE_ARGS + ["--override-channels", "--offline", "--dry-run", "-n", random_env_name()]
 SOLVER_DEFAULT = "classic"
 
 
@@ -45,6 +47,11 @@ def paramaterize_solver(test):
 
 thisdir = os.path.dirname(__file__)
 repos_dir = os.path.join(os.path.dirname(thisdir), "repos")
+
+
+assert Path(
+    repos_dir, "main", "osx-64", "bzip2-1.0.8-h1de35cc_0.conda"
+).exists(), "run download_files.py script"
 
 
 def channel_url(name):
@@ -62,23 +69,30 @@ bioconda = channel_url("bioconda")
 @paramaterize_solver
 def test_solve_anaconda_53(solver=SOLVER_DEFAULT):
     execute_conda_cmd(CLEAN_INDEX_ARGS)
-    execute_conda_cmd(SOLVE_ARGS + [f"--solver={solver}", "-c", main, "anaconda=5.3.0"])
-
-
-@pytest.mark.benchmark
-@paramaterize_solver
-def test_solve_anaconda_44(solver=SOLVER_DEFAULT):
-    execute_conda_cmd(CLEAN_INDEX_ARGS)
     execute_conda_cmd(
-        SOLVE_ARGS + [f"--solver={solver}", "-c", main, "-c", free, "anaconda=4.4.0"]
+        SOLVE_ARGS + [f"--solver={solver}", "-c", main, "anaconda=5.3.0"]
     )
 
 
-@pytest.mark.benchmark
-@paramaterize_solver
-def test_solve_anaconda_44_free_only(solver=SOLVER_DEFAULT):
-    execute_conda_cmd(CLEAN_INDEX_ARGS)
-    execute_conda_cmd(SOLVE_ARGS + [f"--solver={solver}", "-c", free, "anaconda=4.4.0"])
+if True:
+    # problems with free channel: conda looks for current_repodata.json
+
+    @pytest.mark.benchmark
+    @paramaterize_solver
+    def test_solve_anaconda_44(solver=SOLVER_DEFAULT):
+        execute_conda_cmd(CLEAN_INDEX_ARGS)
+        execute_conda_cmd(
+            SOLVE_ARGS + [f"--solver={solver}", "-c", main, "-c", free, "anaconda=4.4.0"]
+        )
+
+
+    @pytest.mark.benchmark
+    @paramaterize_solver
+    def test_solve_anaconda_44_free_only(solver=SOLVER_DEFAULT):
+        execute_conda_cmd(CLEAN_INDEX_ARGS)
+        execute_conda_cmd(
+            SOLVE_ARGS + [f"--solver={solver}", "-c", free, "anaconda=4.4.0"]
+        )
 
 
 @pytest.mark.benchmark
@@ -113,8 +127,8 @@ def test_solve_r_essentials_r_base_conda_forge(solver=SOLVER_DEFAULT):
 
 # @pytest.mark.benchmark
 # def test_solve_r_essentials_r_base_conda_forge_bioconda():
-#    execute_conda_cmd(CLEAN_INDEX_ARGS)
-#    execute_conda_cmd(SOLVE_ARGS + ['-c', bioconda, '-c', conda_forge, '-c', main, '-c', r,
+#    assert 1==execute_conda_cmd(CLEAN_INDEX_ARGS)
+#    assert 1==execute_conda_cmd(SOLVE_ARGS + ['-c', bioconda, '-c', conda_forge, '-c', main, '-c', r,
 #                                    'r-essentials', 'r-base'])
 
 

@@ -21,7 +21,7 @@ with env_vars({
         "CONDA_PKGS_DIRS": os.path.join('repos', 'main', subdir),
 }):
     try:
-        python_api.run_command("create", "-n", "fakeenv", "--download-only", "python", "mkl")
+        python_api.run_command("create", "-n", "fakeenv", "--download-only", "python=3.6", "mkl")
     except:
         pass
     if sys.platform != "win32":
@@ -35,10 +35,13 @@ for chan, url in channel_map.items():
         subdir_path = os.path.join('repos', chan, _subdir)
         if not os.path.exists(subdir_path):
             os.makedirs(subdir_path)
-        for fn in ("repodata.json", "repodata.json.bz2"):
-            urllib.request.urlretrieve(
-                "%s/%s/%s" % (url, _subdir, fn),
-                os.path.join(subdir_path, fn))
+        for fn in ("repodata.json", "repodata.json.bz2", "current_repodata.json", "current_repodata.json.bz2"):
+            try:
+                urllib.request.urlretrieve(
+                    "%s/%s/%s" % (url, _subdir, fn),
+                    os.path.join(subdir_path, fn))
+            except urllib.error.HTTPError as e:
+                print(url, _subdir, fn, e)
 
         # remove subdirs (extracted packages - we want to include package extraction in timing)
         for _, dirs, _ in os.walk(subdir_path):
