@@ -1,0 +1,27 @@
+channels:
+  - defaults
+dependencies:
+  - aiohttp # why not httpx?
+  - aiofiles # normal file API probably OK?
+  # installed in asv.conf.json matrix
+  # - conda-package-handling >=1.3.0
+  - pycosat >=0.6.3
+  - pyopenssl >=16.2.0
+  - requests >=2.18.4,<3
+  - ruamel_yaml >=0.11.14,<0.17
+  - setuptools >=31.0.1
+  - toolz >=0.8.1
+  - cython
+  - zstandard
+  - pip
+  - pyyaml
+  - pytest
+  - pip:
+    - conda-package-streaming
+    - requests-cache
+    - jsonpatch
+    - flask
+    - Werkzeug >= 2.2
+    - git+https://github.com/conda-incubator/conda-package-streaming#egg=conda-package-streaming
+    # can't install conda-index due to its conda (project under test) dependency
+    # - git+https://github.com/conda-incubator/conda-index#egg=conda-index
