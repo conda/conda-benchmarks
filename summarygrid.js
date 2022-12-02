@@ -12,7 +12,7 @@ $(document).ready(function() {
                     (element.offset().top + element.height() >= $(window).scrollTop()));
             if (visible) {
                 func();
-                $(window).unbind('scroll', handler);
+                $(window).off('scroll', handler);
             }
         }
         $(window).on('scroll', handler);
@@ -112,6 +112,7 @@ $(document).ready(function() {
 
         $.each(get_benchmarks_by_groups(), function(group, benchmarks) {
             var group_container = $('<div class="benchmark-group"/>')
+            group_container.attr('id', 'group-' + group)
             group_container.append($('<h1>' + group + '</h1>'));
             summary_display.append(group_container);
             $.each(benchmarks, function(i, bm_name) {
@@ -121,7 +122,7 @@ $(document).ready(function() {
         });
 
         summary_display.append(summary_container);
-        $(window).scroll();
+        $(window).trigger('scroll');
 
         summary_loaded = true;
     }

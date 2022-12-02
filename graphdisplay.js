@@ -21,6 +21,8 @@ $(document).ready(function() {
     var select_reference = false;
     /* The reference value */
     var reference = 1.0;
+    /* Whether to show the legend */
+    var show_legend = true;
     /* Is even commit spacing being used? */
     var even_spacing = false;
     var even_spacing_revisions = [];
@@ -123,7 +125,7 @@ $(document).ready(function() {
         benchmark_graph_display_ready = true;
 
         /* When the window resizes, redraw the graphs */
-        $(window).resize(function() {
+        $(window).on('resize', function() {
             update_graphs();
         });
 
@@ -178,7 +180,7 @@ $(document).ready(function() {
                 stack.push($(top.children()[1]));
                 cursor.push(parts[j]);
 
-                $(top.children()[0]).click(function () {
+                $(top.children()[0]).on('click', function () {
                     $(this).parent().children('ul.tree').toggle(150);
                     var caret = $(this).children('b');
                     if (caret.attr('class') == 'caret') {
@@ -257,6 +259,11 @@ $(document).ready(function() {
             $('#even-spacing').removeClass('active');
             update_state_url({'x-axis-scale': date_scale ? ['date'] : []});
         });
+        
+        $('#show-legend').on('click', function(evt) {
+            show_legend = !show_legend;
+            update_state_url({'show-legend': show_legend ? [] : [false]});
+        });
 
         tooltip = $("<div></div>");
         tooltip.appendTo("body");
@@ -285,7 +292,7 @@ $(document).ready(function() {
         }
 
         var previous_hover = null;
-        $("#main-graph").bind("plothover", function (event, pos, item) {
+        $("#main-graph").on("plothover", function (event, pos, item) {
             if (item) {
                 if (previous_hover != item.datapoint) {
                     previous_hover = item.datapoint;
@@ -307,7 +314,7 @@ $(document).ready(function() {
            hash in another tab. */
         var previous_click;
         var previous_hash;
-        $("#main-graph").bind("plotclick", function (event, pos, item) {
+        $("#main-graph").on("plotclick", function (event, pos, item) {
             if (item) {
                 if (previous_click != item.datapoint) {
                     previous_click = item.datapoint;
@@ -820,7 +827,16 @@ $(document).ready(function() {
         var to_load = collect_graphs(current_benchmark, state, benchmark_param_selection);
         var failures = 0;
         var count = 1;
-
+        
+        if (to_load.length === 0) {
+            $('#main-graph').html("<div style='display: flex;" +
+                "justify-content: center;" +
+                " align-items: center; height: 100%;'>" +
+                "<p style='font-size: 2rem;'>No graphs to load.</p>" +
+                "</div>")
+            return
+        }
+    
         current_revisions = [];
         $.each(to_load, function(i, item) {
             $.asv.load_graph_data(
@@ -1178,6 +1194,7 @@ $(document).ready(function() {
                 mode: "x"
             },
             legend: {
+                show: show_legend,
                 position: "nw",
                 labelFormatter: function(label, series) {
                     // Ensure HTML escaping
@@ -1233,8 +1250,8 @@ $(document).ready(function() {
             overview = $.plot(overview_div, graphs, overview_options);
         }
 
-        graph_div.unbind("plotselected");
-        graph_div.bind("plotselected", function (event, ranges) {
+        graph_div.off("plotselected");
+        graph_div.on("plotselected", function (event, ranges) {
             // do the zooming
             var new_options = $.extend(true, {}, options, {
                 xaxis: {
@@ -1257,8 +1274,8 @@ $(document).ready(function() {
             }
         });
 
-        overview_div.unbind("plotselected");
-        overview_div.bind("plotselected", function (event, ranges) {
+        overview_div.off("plotselected");
+        overview_div.on("plotselected", function (event, ranges) {
             plot.setSelection(ranges);
             // Update things that depend on the range
             update_tags();
@@ -1383,6 +1400,22 @@ $(document).ready(function() {
                 date_scale = true;
             }
             delete params['x-axis-scale'];
+        }
+    
+        var show_legend_button = $('#show-legend')
+        if (params['show-legend']) {
+            if (params['show-legend'][0] === 'false') {
+                show_legend = false;
+                show_legend_button.removeClass('active');
+            }
+            else {
+                show_legend_button.addClass('active');
+                show_legend = true;
+            }
+            delete params['show-legend'];
+        }
+        else {
+            show_legend_button.addClass('active');
         }
 
         if (Object.keys(params).length > 0) {
