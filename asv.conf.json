@@ -86,6 +86,7 @@
     "matrix": {
         "req": {
             "conda-package-handling": ["2.0.2"],
+            "conda-libmamba-solver":[],
         }
     },
 
