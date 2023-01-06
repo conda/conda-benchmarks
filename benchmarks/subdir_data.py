@@ -169,9 +169,12 @@ class TimeSubdirData:
         subdir._read_local_repdata(
             {"_etag": MOD_STAMP["_etag"], "_mod": MOD_STAMP["_mod"]}
         )
-        # list(subdir.query("[version=1.0]")) # is now an invalid MatchSpec
-        assert all(isinstance(r, PackageRecord) for r in subdir._package_records)
-        print(f"Has {len(subdir._package_records)} package records")
+        # If we decide we only want to time "instantiate PackgaeRecord" and not
+        # MatchSpec, iterate over subdir._package_records instead; new conda has
+        # public subdir.iter_records() method.
+        records = list(subdir.query("*[version=1.0]"))
+        assert all(isinstance(r, PackageRecord) for r in records)
+        print(f"Match {len(records)} package records")
 
         # second iteration should be quicker...
 
