@@ -98,14 +98,15 @@ class TimeSubdirData:
 
         sd_a = SubdirData(channel)
         # load() and reload() don't appear to check _loaded; redundant methods?
-        sd_a.load()
+        # sd_a.load()
         print(f"Should save to {sd_a.cache_path_json}")
 
         # could check sd_a.cache_path_json
         # may have changed from older code, not honoring CONDA_CACHE_DIR?
-        zlib = sd_a.query_all("zlib =1.2.11")
+        zlib = list(sd_a.query("zlib =1.2.11"))
         assert len(zlib) > 0
         # query_all (static method) doesn't load *this* SubdirData by itself?
+        # query_all calls query() on a list of SubdirData.
         assert sd_a._loaded
 
     # SubdirData.cache_path_json
