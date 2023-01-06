@@ -185,7 +185,7 @@
         "version": "655976de94b89433baaecbc7cc0dd3e1a08dce4d4eb8d0fc442baabd4bbe99c0"
     },
     "peakmem_solve_anaconda_53": {
-        "code": "@pytest.mark.benchmark\n@paramaterize_solver\ndef test_solve_anaconda_53(solver=SOLVER_DEFAULT):\n    execute_conda_cmd(CLEAN_INDEX_ARGS)\n    execute_conda_cmd(\n        SOLVE_ARGS + [f\"--solver={solver}\", \"-c\", main, \"anaconda=5.3.0\"]\n    )",
+        "code": "@pytest.mark.benchmark\n@paramaterize_solver\ndef test_solve_anaconda_53(solver=SOLVER_DEFAULT):\n    execute_conda_cmd(CLEAN_INDEX_ARGS)\n    execute_conda_cmd(SOLVE_ARGS + [f\"--solver={solver}\", \"-c\", main, \"anaconda=5.3.0\"])",
         "name": "peakmem_solve_anaconda_53",
         "param_names": [
             "param1"
@@ -199,7 +199,7 @@
         "timeout": 60.0,
         "type": "peakmemory",
         "unit": "bytes",
-        "version": "5b8600e818025cd7cd6518748d577d02d4f727c5496a24ac158481afbbd64e61"
+        "version": "a0f662f4e1b438aa46c8951196e8e06be2b373adac010e110fbdf89b1ed68b5d"
     },
     "peakmem_solve_r_essentials_r_base_conda_forge": {
         "code": "@pytest.mark.benchmark\n@paramaterize_solver\ndef test_solve_r_essentials_r_base_conda_forge(solver=SOLVER_DEFAULT):\n    execute_conda_cmd(CLEAN_INDEX_ARGS)\n    execute_conda_cmd(\n        SOLVE_ARGS\n        + [\n            f\"--solver={solver}\",\n            \"-c\",\n            conda_forge,\n            \"-c\",\n            main,\n            \"-c\",\n            r,\n            \"r-essentials\",\n            \"r-base\",\n        ]\n    )",
@@ -252,7 +252,7 @@
         "warmup_time": -1
     },
     "subdir_data.TimeSubdirData.time_load_json": {
-        "code": "class TimeSubdirData:\n    def time_load_json(self):\n        os.environ[\"CONDA_PKGS_DIRS\"] = str(CONDA_PKGS_DIR)\n        os.environ[\"CONDA_DEFAULT_THREADS\"] = \"1\"\n        SubdirData.clear_cached_local_channel_data()\n        reset_context()\n        context.offline = True\n        channel = Channel(CHANNEL_URL)\n        subdir = SubdirDataNoPickle(channel)\n        subdir._read_local_repdata(MOD_STAMP[\"_etag\"], MOD_STAMP[\"_mod\"])\n\n    def setup(self):\n        if not REPODATA_FILENAME.exists():\n            REPODATA_FILENAME.parent.mkdir(exist_ok=True)\n            # fake out\n            (base / \"noarch\").mkdir(exist_ok=True)\n            (base / \"noarch\" / \"repodata.json\").write_text(\"{}\")\n            (base / \"noarch\" / \"repodata.json.bz2\").write_text(\"\")\n            # do we have a frozen large-ish repodata.json or can we fake one?\n            conda.exports.download(\n                \"https://repo.anaconda.com/pkgs/main/osx-64/repodata.json\",\n                REPODATA_FILENAME,\n            )",
+        "code": "class TimeSubdirData:\n    def time_load_json(self):\n        self.set_environ()\n        self.clear_cache()\n        reset_context()\n        context.offline = True\n        channel = self.channel()\n        subdir = SubdirDataNoPickle(channel)\n        print(f\"Should load from {subdir.cache_path_json}\")\n        print(\n            len(\n                # [sic] the function is called repdata not repodata, since a long time ago\n                subdir._read_local_repdata(\n                    {\"_etag\": MOD_STAMP[\"_etag\"], \"_mod\": MOD_STAMP[\"_mod\"]}\n                )[\"_package_records\"]\n            ),\n            \"package records\",\n        )\n\n    def setup(self):\n        self.set_environ()\n        reset_context()\n    \n        print(f\"Ensure {REPODATA_FILENAME}\")\n        if not REPODATA_FILENAME.exists():\n            REPODATA_FILENAME.parent.mkdir(exist_ok=True)\n            # fake out\n            (base / \"noarch\").mkdir(exist_ok=True)\n            (base / \"noarch\" / \"repodata.json\").write_text(\"{}\")\n            (base / \"noarch\" / \"repodata.json.bz2\").write_text(\"\")\n            # do we have a frozen large-ish repodata.json or can we fake one?\n            conda.exports.download(\n                \"https://repo.anaconda.com/pkgs/main/osx-64/repodata.json\",\n                REPODATA_FILENAME,\n            )",
         "min_run_count": 2,
         "name": "subdir_data.TimeSubdirData.time_load_json",
         "number": 0,
@@ -264,11 +264,11 @@
         "timeout": 60.0,
         "type": "time",
         "unit": "seconds",
-        "version": "35f66376e8016a26a66a7984f7d6f7028ad2359ab1f18287fb448fe4156087a2",
+        "version": "3eb76f543d758f94d04c7f423f9058dff826fc79b8071d30c8e56f40bdc4b317",
         "warmup_time": -1
     },
     "subdir_data.TimeSubdirData.time_load_json_query_all": {
-        "code": "class TimeSubdirData:\n    def time_load_json_query_all(self):\n        os.environ[\"CONDA_PKGS_DIRS\"] = str(CONDA_PKGS_DIR)\n        os.environ[\"CONDA_DEFAULT_THREADS\"] = \"1\"\n        SubdirData.clear_cached_local_channel_data()\n        reset_context()\n        context.offline = True\n        channel = Channel(CHANNEL_URL)\n        subdir = SubdirDataNoPickle(channel)\n        subdir._read_local_repdata(MOD_STAMP[\"_etag\"], MOD_STAMP[\"_mod\"])\n        subdir.query(\"[version=1.0]\")\n\n    def setup(self):\n        if not REPODATA_FILENAME.exists():\n            REPODATA_FILENAME.parent.mkdir(exist_ok=True)\n            # fake out\n            (base / \"noarch\").mkdir(exist_ok=True)\n            (base / \"noarch\" / \"repodata.json\").write_text(\"{}\")\n            (base / \"noarch\" / \"repodata.json.bz2\").write_text(\"\")\n            # do we have a frozen large-ish repodata.json or can we fake one?\n            conda.exports.download(\n                \"https://repo.anaconda.com/pkgs/main/osx-64/repodata.json\",\n                REPODATA_FILENAME,\n            )",
+        "code": "class TimeSubdirData:\n    def time_load_json_query_all(self):\n        \"\"\"\n        Not SubdirData.query_all() but a query that should force it to iterate over all PackageRecord.\n        \"\"\"\n        self.set_environ()\n    \n        self.clear_cache()\n        reset_context()\n        context.offline = True\n        channel = self.channel()\n        subdir = SubdirDataNoPickle(channel)\n        subdir._read_local_repdata(\n            {\"_etag\": MOD_STAMP[\"_etag\"], \"_mod\": MOD_STAMP[\"_mod\"]}\n        )\n        records = list(subdir.query(\"*[version=1.0]\"))\n        assert all(isinstance(r, PackageRecord) for r in records)\n        print(f\"Match {len(records)} package records\")\n    \n        # second iteration should be quicker...\n\n    def setup(self):\n        self.set_environ()\n        reset_context()\n    \n        print(f\"Ensure {REPODATA_FILENAME}\")\n        if not REPODATA_FILENAME.exists():\n            REPODATA_FILENAME.parent.mkdir(exist_ok=True)\n            # fake out\n            (base / \"noarch\").mkdir(exist_ok=True)\n            (base / \"noarch\" / \"repodata.json\").write_text(\"{}\")\n            (base / \"noarch\" / \"repodata.json.bz2\").write_text(\"\")\n            # do we have a frozen large-ish repodata.json or can we fake one?\n            conda.exports.download(\n                \"https://repo.anaconda.com/pkgs/main/osx-64/repodata.json\",\n                REPODATA_FILENAME,\n            )",
         "min_run_count": 2,
         "name": "subdir_data.TimeSubdirData.time_load_json_query_all",
         "number": 0,
@@ -280,11 +280,11 @@
         "timeout": 60.0,
         "type": "time",
         "unit": "seconds",
-        "version": "154d0d31b099aeecd22b30343f902ab794ab9b232afd6f40368db1dc6eb4c352",
+        "version": "8df66212b8781ad2b08c0ca82593a7701317f7481f8d64e60659347a0ec83b11",
         "warmup_time": -1
     },
     "subdir_data.TimeSubdirData.time_load_json_query_one": {
-        "code": "class TimeSubdirData:\n    def time_load_json_query_one(self):\n        os.environ[\"CONDA_PKGS_DIRS\"] = str(CONDA_PKGS_DIR)\n        os.environ[\"CONDA_DEFAULT_THREADS\"] = \"1\"\n        SubdirData.clear_cached_local_channel_data()\n        reset_context()\n        context.offline = True\n        channel = Channel(CHANNEL_URL)\n        subdir = SubdirDataNoPickle(channel)\n        subdir._read_local_repdata(MOD_STAMP[\"_etag\"], MOD_STAMP[\"_mod\"])\n        subdir.query(\"python\")\n\n    def setup(self):\n        if not REPODATA_FILENAME.exists():\n            REPODATA_FILENAME.parent.mkdir(exist_ok=True)\n            # fake out\n            (base / \"noarch\").mkdir(exist_ok=True)\n            (base / \"noarch\" / \"repodata.json\").write_text(\"{}\")\n            (base / \"noarch\" / \"repodata.json.bz2\").write_text(\"\")\n            # do we have a frozen large-ish repodata.json or can we fake one?\n            conda.exports.download(\n                \"https://repo.anaconda.com/pkgs/main/osx-64/repodata.json\",\n                REPODATA_FILENAME,\n            )",
+        "code": "class TimeSubdirData:\n    def time_load_json_query_one(self):\n        self.set_environ()\n    \n        self.clear_cache()\n        reset_context()\n        context.offline = True\n        channel = self.channel()\n        subdir = SubdirDataNoPickle(channel)\n        subdir._read_local_repdata(\n            {\"_etag\": MOD_STAMP[\"_etag\"], \"_mod\": MOD_STAMP[\"_mod\"]}\n        )\n        list(subdir.query(\"python\"))\n\n    def setup(self):\n        self.set_environ()\n        reset_context()\n    \n        print(f\"Ensure {REPODATA_FILENAME}\")\n        if not REPODATA_FILENAME.exists():\n            REPODATA_FILENAME.parent.mkdir(exist_ok=True)\n            # fake out\n            (base / \"noarch\").mkdir(exist_ok=True)\n            (base / \"noarch\" / \"repodata.json\").write_text(\"{}\")\n            (base / \"noarch\" / \"repodata.json.bz2\").write_text(\"\")\n            # do we have a frozen large-ish repodata.json or can we fake one?\n            conda.exports.download(\n                \"https://repo.anaconda.com/pkgs/main/osx-64/repodata.json\",\n                REPODATA_FILENAME,\n            )",
         "min_run_count": 2,
         "name": "subdir_data.TimeSubdirData.time_load_json_query_one",
         "number": 0,
@@ -296,11 +296,11 @@
         "timeout": 60.0,
         "type": "time",
         "unit": "seconds",
-        "version": "63b2f23eb52638a33eb7db04b302cabf427550fdb374166978b6514cf9f99351",
+        "version": "b50a0d7beff9afec242ddbc4c33a34646d894e498c926e5ae8bd7dff03570b93",
         "warmup_time": -1
     },
     "subdir_data.TimeSubdirData.time_load_pickle": {
-        "code": "class TimeSubdirData:\n    def time_load_pickle(self):\n        os.environ[\"CONDA_PKGS_DIRS\"] = str(CONDA_PKGS_DIR)\n        os.environ[\"CONDA_DEFAULT_THREADS\"] = \"1\"\n        SubdirData.clear_cached_local_channel_data()\n        reset_context()\n        context.offline = True\n        channel = Channel(CHANNEL_URL)\n        sd = SubdirData(channel)\n        sd._read_pickled(MOD_STAMP[\"_etag\"], MOD_STAMP[\"_mod\"])\n\n    def setup(self):\n        if not REPODATA_FILENAME.exists():\n            REPODATA_FILENAME.parent.mkdir(exist_ok=True)\n            # fake out\n            (base / \"noarch\").mkdir(exist_ok=True)\n            (base / \"noarch\" / \"repodata.json\").write_text(\"{}\")\n            (base / \"noarch\" / \"repodata.json.bz2\").write_text(\"\")\n            # do we have a frozen large-ish repodata.json or can we fake one?\n            conda.exports.download(\n                \"https://repo.anaconda.com/pkgs/main/osx-64/repodata.json\",\n                REPODATA_FILENAME,\n            )",
+        "code": "class TimeSubdirData:\n    def time_load_pickle(self):\n        self.set_environ()\n    \n        self.clear_cache()\n        reset_context()\n        context.offline = True\n        channel = self.channel()\n        sd = SubdirData(channel)\n        sd._read_pickled({\"_etag\": MOD_STAMP[\"_etag\"], \"_mod\": MOD_STAMP[\"_mod\"]})\n\n    def setup(self):\n        self.set_environ()\n        reset_context()\n    \n        print(f\"Ensure {REPODATA_FILENAME}\")\n        if not REPODATA_FILENAME.exists():\n            REPODATA_FILENAME.parent.mkdir(exist_ok=True)\n            # fake out\n            (base / \"noarch\").mkdir(exist_ok=True)\n            (base / \"noarch\" / \"repodata.json\").write_text(\"{}\")\n            (base / \"noarch\" / \"repodata.json.bz2\").write_text(\"\")\n            # do we have a frozen large-ish repodata.json or can we fake one?\n            conda.exports.download(\n                \"https://repo.anaconda.com/pkgs/main/osx-64/repodata.json\",\n                REPODATA_FILENAME,\n            )",
         "min_run_count": 2,
         "name": "subdir_data.TimeSubdirData.time_load_pickle",
         "number": 0,
@@ -312,11 +312,11 @@
         "timeout": 60.0,
         "type": "time",
         "unit": "seconds",
-        "version": "bf8d3ae4aa83e4494d54ba756a12997cb22c0b68ff8a89b70ab2cef8604f66af",
+        "version": "551e8de7eaf0730f716f803955dd95cdf10eb96cafd6481cd285c641c5eb436a",
         "warmup_time": -1
     },
     "subdir_data.TimeSubdirData.time_save_pickle": {
-        "code": "class TimeSubdirData:\n    def time_save_pickle(self):\n        os.environ[\"CONDA_PKGS_DIRS\"] = str(CONDA_PKGS_DIR)\n        os.environ[\"CONDA_DEFAULT_THREADS\"] = \"1\"\n        SubdirData.clear_cached_local_channel_data()\n        reset_context()\n        context.offline = True\n        channel = Channel(CHANNEL_URL)\n        sd = SubdirData(channel)\n        sd._pickle_me()\n\n    def setup(self):\n        if not REPODATA_FILENAME.exists():\n            REPODATA_FILENAME.parent.mkdir(exist_ok=True)\n            # fake out\n            (base / \"noarch\").mkdir(exist_ok=True)\n            (base / \"noarch\" / \"repodata.json\").write_text(\"{}\")\n            (base / \"noarch\" / \"repodata.json.bz2\").write_text(\"\")\n            # do we have a frozen large-ish repodata.json or can we fake one?\n            conda.exports.download(\n                \"https://repo.anaconda.com/pkgs/main/osx-64/repodata.json\",\n                REPODATA_FILENAME,\n            )",
+        "code": "class TimeSubdirData:\n    def time_save_pickle(self):\n        self.set_environ()\n    \n        self.clear_cache()\n        reset_context()\n        context.offline = True\n        channel = self.channel()\n        sd = SubdirData(channel)\n        sd._pickle_me()\n\n    def setup(self):\n        self.set_environ()\n        reset_context()\n    \n        print(f\"Ensure {REPODATA_FILENAME}\")\n        if not REPODATA_FILENAME.exists():\n            REPODATA_FILENAME.parent.mkdir(exist_ok=True)\n            # fake out\n            (base / \"noarch\").mkdir(exist_ok=True)\n            (base / \"noarch\" / \"repodata.json\").write_text(\"{}\")\n            (base / \"noarch\" / \"repodata.json.bz2\").write_text(\"\")\n            # do we have a frozen large-ish repodata.json or can we fake one?\n            conda.exports.download(\n                \"https://repo.anaconda.com/pkgs/main/osx-64/repodata.json\",\n                REPODATA_FILENAME,\n            )",
         "min_run_count": 2,
         "name": "subdir_data.TimeSubdirData.time_save_pickle",
         "number": 0,
@@ -328,11 +328,11 @@
         "timeout": 60.0,
         "type": "time",
         "unit": "seconds",
-        "version": "6fc984f0a7d013480570252a7f2988e0b756fcf4ff76696d79414cbe5995497a",
+        "version": "7a6f7e2fff3f6bd321f79a458c47234aec87c1c9058cc6e59918f1e215c32442",
         "warmup_time": -1
     },
     "subdir_data.TimeSubdirData.time_subdir_data": {
-        "code": "class TimeSubdirData:\n    def time_subdir_data(self):\n        channel = Channel(f\"file://{base}\", platform=\"osx-64\")\n        SubdirData.clear_cached_local_channel_data()\n    \n        sd_a = SubdirData(channel)\n        assert sd_a.query_all(\"zlib =1.2.11\")\n\n    def setup(self):\n        if not REPODATA_FILENAME.exists():\n            REPODATA_FILENAME.parent.mkdir(exist_ok=True)\n            # fake out\n            (base / \"noarch\").mkdir(exist_ok=True)\n            (base / \"noarch\" / \"repodata.json\").write_text(\"{}\")\n            (base / \"noarch\" / \"repodata.json.bz2\").write_text(\"\")\n            # do we have a frozen large-ish repodata.json or can we fake one?\n            conda.exports.download(\n                \"https://repo.anaconda.com/pkgs/main/osx-64/repodata.json\",\n                REPODATA_FILENAME,\n            )",
+        "code": "class TimeSubdirData:\n    def time_subdir_data(self):\n        self.set_environ()\n        reset_context()\n    \n        channel = self.channel()\n        assert channel.platform == \"osx-64\"\n    \n        self.clear_cache()\n    \n        sd_a = SubdirData(channel)\n        # load() and reload() don't appear to check _loaded; redundant methods?\n        # sd_a.load()\n        print(f\"Should save to {sd_a.cache_path_json}\")\n    \n        # could check sd_a.cache_path_json\n        # may have changed from older code, not honoring CONDA_CACHE_DIR?\n        zlib = list(sd_a.query(\"zlib =1.2.11\"))\n        assert len(zlib) > 0\n        # query_all (static method) doesn't load *this* SubdirData by itself?\n        # query_all calls query() on a list of SubdirData.\n        assert sd_a._loaded\n\n    def setup(self):\n        self.set_environ()\n        reset_context()\n    \n        print(f\"Ensure {REPODATA_FILENAME}\")\n        if not REPODATA_FILENAME.exists():\n            REPODATA_FILENAME.parent.mkdir(exist_ok=True)\n            # fake out\n            (base / \"noarch\").mkdir(exist_ok=True)\n            (base / \"noarch\" / \"repodata.json\").write_text(\"{}\")\n            (base / \"noarch\" / \"repodata.json.bz2\").write_text(\"\")\n            # do we have a frozen large-ish repodata.json or can we fake one?\n            conda.exports.download(\n                \"https://repo.anaconda.com/pkgs/main/osx-64/repodata.json\",\n                REPODATA_FILENAME,\n            )",
         "min_run_count": 2,
         "name": "subdir_data.TimeSubdirData.time_subdir_data",
         "number": 0,
@@ -344,7 +344,7 @@
         "timeout": 60.0,
         "type": "time",
         "unit": "seconds",
-        "version": "7b06ce8f4c53edf9bb515f7f095b3fd5b6bfc9a2170e059bc8b38b3d28d67021",
+        "version": "afb8a977e1fa87de0458b31302c5c767e72a6b077a7099602b4c48ecdccdcc6c",
         "warmup_time": -1
     },
     "time_create_numpy_mkl": {
@@ -440,7 +440,7 @@
         "warmup_time": -1
     },
     "time_solve_anaconda_53": {
-        "code": "@pytest.mark.benchmark\n@paramaterize_solver\ndef test_solve_anaconda_53(solver=SOLVER_DEFAULT):\n    execute_conda_cmd(CLEAN_INDEX_ARGS)\n    execute_conda_cmd(\n        SOLVE_ARGS + [f\"--solver={solver}\", \"-c\", main, \"anaconda=5.3.0\"]\n    )",
+        "code": "@pytest.mark.benchmark\n@paramaterize_solver\ndef test_solve_anaconda_53(solver=SOLVER_DEFAULT):\n    execute_conda_cmd(CLEAN_INDEX_ARGS)\n    execute_conda_cmd(SOLVE_ARGS + [f\"--solver={solver}\", \"-c\", main, \"anaconda=5.3.0\"])",
         "min_run_count": 2,
         "name": "time_solve_anaconda_53",
         "number": 0,
@@ -459,7 +459,7 @@
         "timeout": 60.0,
         "type": "time",
         "unit": "seconds",
-        "version": "5b8600e818025cd7cd6518748d577d02d4f727c5496a24ac158481afbbd64e61",
+        "version": "a0f662f4e1b438aa46c8951196e8e06be2b373adac010e110fbdf89b1ed68b5d",
         "warmup_time": -1
     },
     "time_solve_r_essentials_r_base_conda_forge": {
