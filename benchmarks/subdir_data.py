@@ -152,9 +152,12 @@ class TimeSubdirData:
         subdir._read_local_repdata(
             {"_etag": MOD_STAMP["_etag"], "_mod": MOD_STAMP["_mod"]}
         )
-        subdir.query("python")
+        list(subdir.query("python"))
 
     def time_load_json_query_all(self):
+        """
+        Not SubdirData.query_all() but a query that should force it to iterate over all PackageRecord.
+        """
         self.set_environ()
 
         self.clear_cache()
@@ -165,7 +168,7 @@ class TimeSubdirData:
         subdir._read_local_repdata(
             {"_etag": MOD_STAMP["_etag"], "_mod": MOD_STAMP["_mod"]}
         )
-        subdir.query("[version=1.0]")
+        list(subdir.query("[version=1.0]"))
 
     def time_load_pickle(self):
         self.set_environ()
