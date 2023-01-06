@@ -10,6 +10,7 @@ import conda.exports
 from conda.base.context import context, reset_context
 from conda.core.subdir_data import SubdirData
 from conda.models.channel import Channel
+from conda.models.records import PackageRecord
 
 from .conda_install import timeme
 from .test_server import base
@@ -168,7 +169,11 @@ class TimeSubdirData:
         subdir._read_local_repdata(
             {"_etag": MOD_STAMP["_etag"], "_mod": MOD_STAMP["_mod"]}
         )
-        list(subdir.query("[version=1.0]"))
+        # list(subdir.query("[version=1.0]")) # is now an invalid MatchSpec
+        assert all(isinstance(r, PackageRecord) for r in subdir._package_records)
+        print(f"Has {len(subdir._package_records)} package records")
+
+        # second iteration should be quicker...
 
     def time_load_pickle(self):
         self.set_environ()
@@ -199,3 +204,5 @@ if __name__ == "__main__":
         tsd.time_subdir_data()
     with timeme("load_json "):
         tsd.time_load_json()
+    with timeme("iterate all packagerecord "):
+        tsd.time_load_json_query_all()
