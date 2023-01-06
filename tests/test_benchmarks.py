@@ -56,7 +56,7 @@ repos_dir = os.path.join(os.path.dirname(thisdir), "repos")
 
 
 assert Path(
-    repos_dir, "main", "osx-64", "bzip2-1.0.8-h1de35cc_0.conda"
+    repos_dir, "main", "osx-64", "repodata.json"
 ).exists(), "run CONDA_SUBDIR=osx-64 python3 download_files.py"
 
 
