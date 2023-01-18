@@ -7,7 +7,7 @@ import os
 from pprint import pprint
 import sys
 import types
-from importlib import __import__   # NOQA
+from importlib import __import__  # NOQA
 
 
 # https://stackoverflow.com/a/31197273/1170370
@@ -18,7 +18,7 @@ def _get_decorators(cls):
     def visit_FunctionDef(node):
         decorators[node.name] = []
         for n in node.decorator_list:
-            name = ''
+            name = ""
             if isinstance(n, ast.Call):
                 name = n.func.attr if isinstance(n.func, ast.Attribute) else n.func.id
             else:
@@ -33,7 +33,7 @@ def _get_decorators(cls):
 
 
 _thisdir = os.path.dirname(__file__)
-test_dir = os.path.join(os.path.dirname(_thisdir), 'tests')
+test_dir = os.path.join(os.path.dirname(_thisdir), "tests")
 
 flist = os.path.join(_thisdir, "benchmark_files.json")
 if os.path.exists(flist):
@@ -49,8 +49,7 @@ def _parse_ast(filename):
 
 
 def _is_test_func(ast_entry):
-    return (isinstance(ast_entry, ast.FunctionDef) and
-            ast_entry.name.startswith("test_"))
+    return isinstance(ast_entry, ast.FunctionDef) and ast_entry.name.startswith("test_")
 
 
 def _import_test_module(test_file_path):
@@ -59,6 +58,7 @@ def _import_test_module(test_file_path):
     if test_dir not in sys.path:
         sys.path.insert(0, test_dir)
     return __import__(test_module_name)
+
 
 # ======================================================================
 #      function-based test suites (pytest style)
@@ -71,8 +71,11 @@ def _top_level_functions(body, module):
     benchmark_funcs = {}
     if test_funcs:
         benchmark_funcs = _get_decorators(module)
-    return [f for f, decorators in benchmark_funcs.items() if ('benchmark' in decorators and
-                                                               f in test_funcs)]
+    return [
+        f
+        for f, decorators in benchmark_funcs.items()
+        if ("benchmark" in decorators and f in test_funcs)
+    ]
 
 
 def _list_test_functions(filename):
@@ -83,9 +86,13 @@ def _list_test_functions(filename):
 # https://stackoverflow.com/a/13503277/1170370
 def _copy_func(f):
     """Based on http://stackoverflow.com/a/6528148/190597 (Glenn Maynard)"""
-    g = types.FunctionType(f.__code__, f.__globals__, name=f.__name__,
-                           argdefs=f.__defaults__,
-                           closure=f.__closure__)
+    g = types.FunctionType(
+        f.__code__,
+        f.__globals__,
+        name=f.__name__,
+        argdefs=f.__defaults__,
+        closure=f.__closure__,
+    )
     g = functools.update_wrapper(g, f)
     g.__kwdefaults__ = f.__kwdefaults__
     return g
@@ -101,7 +108,7 @@ def _add_renamed_functions_from_test_file(dest_module, test_file_path, repl_name
     print("Found functions in {}".format(test_file_path))
     pprint(funcs)
     for func in funcs:
-        new_func_name = func.replace('test', repl_name, 1)
+        new_func_name = func.replace("test", repl_name, 1)
         new_func = _copy_func(getattr(sys.modules[test_module.__name__], func))
         new_func.__name__ = new_func_name
 
@@ -114,6 +121,7 @@ def add_test_funcs_to_module(module, repl_name):
         if not flist or os.path.basename(test_file) in flist:
             _add_renamed_functions_from_test_file(module, test_file, repl_name)
 
+
 # ======================================================================
 #      class-based test suites (unittest style)
 # ======================================================================
@@ -121,8 +129,14 @@ def add_test_funcs_to_module(module, repl_name):
 
 # https://stackoverflow.com/a/31005891/1170370
 def _top_level_test_classes(mod_ast):
-    return [f.name for f in mod_ast.body if (isinstance(f, ast.ClassDef) and
-                                any(_is_test_func(inner_f) for inner_f in f.body))]
+    return [
+        f.name
+        for f in mod_ast.body
+        if (
+            isinstance(f, ast.ClassDef)
+            and any(_is_test_func(inner_f) for inner_f in f.body)
+        )
+    ]
 
 
 def _list_classes_with_test_methods(filename):
@@ -149,13 +163,22 @@ def _add_renamed_classes_from_test_file(dest_module, test_file_path, repl_name):
     for cls_name in class_names:
         new_class_name = repl_name.capitalize() + cls_name
         old_class = getattr(test_module, cls_name)
-        benchmark_funcs = {k: v for k, v in _get_decorators(old_class).items() if 'benchmark' in v}
+        benchmark_funcs = {
+            k: v for k, v in _get_decorators(old_class).items() if "benchmark" in v
+        }
         if benchmark_funcs:
             attrs = _reclassify_test(old_class, repl_name, benchmark_funcs)
-            print("Adding class {} to module {} with attrs:".format(new_class_name, dest_module_name))
+            print(
+                "Adding class {} to module {} with attrs:".format(
+                    new_class_name, dest_module_name
+                )
+            )
             pprint(attrs)
-            setattr(sys.modules[dest_module.__name__], new_class_name,
-                    type(new_class_name, (old_class, ), attrs))
+            setattr(
+                sys.modules[dest_module.__name__],
+                new_class_name,
+                type(new_class_name, (old_class,), attrs),
+            )
 
 
 def add_renamed_classes_to_module(module, repl_name):
